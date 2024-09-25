@@ -23,8 +23,8 @@ CREATE TABLE "Team" (
 CREATE TABLE "Project" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "decription" TEXT,
-    "stareDate" TIMESTAMP(3),
+    "description" TEXT,
+    "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
 
     CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
@@ -52,7 +52,7 @@ CREATE TABLE "Task" (
     "points" INTEGER,
     "projectId" INTEGER NOT NULL,
     "authorUserId" INTEGER NOT NULL,
-    "assignedUserId" INTEGER NOT NULL,
+    "assignedUserId" INTEGER,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -109,7 +109,7 @@ ALTER TABLE "Task" ADD CONSTRAINT "Task_projectId_fkey" FOREIGN KEY ("projectId"
 ALTER TABLE "Task" ADD CONSTRAINT "Task_authorUserId_fkey" FOREIGN KEY ("authorUserId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Task" ADD CONSTRAINT "Task_assignedUserId_fkey" FOREIGN KEY ("assignedUserId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Task" ADD CONSTRAINT "Task_assignedUserId_fkey" FOREIGN KEY ("assignedUserId") REFERENCES "User"("userId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TaskAssignment" ADD CONSTRAINT "TaskAssignment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
